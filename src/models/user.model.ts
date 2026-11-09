@@ -46,7 +46,7 @@ const UserSchema = new Schema<IUser>(
     },
     firstname: String,
     lastname: String,
-    email: { type: String, index: true },
+    email: { type: String, required: true, index: true },
     address: {
       area: String,
       street: String,
