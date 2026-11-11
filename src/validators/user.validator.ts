@@ -23,3 +23,5 @@ export const createUserSchema = z.object({
   phone: phoneSchema.optional(),
   roles: z.array(z.string()).optional(),
 });
+
+export const updateUserSchema = createUserSchema.partial();
