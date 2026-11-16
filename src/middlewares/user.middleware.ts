@@ -1,15 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { IRole } from "../models/role.model.js";
-import jwt, { JwtPayload } from "jsonwebtoken";
-import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
 // import { AuthPayload } from "../models/auth.model";
-dotenv.config();
-
-interface AuthPayload extends JwtPayload {
-  username: string;
-  email: string;
-  roles: IRole[];
-}
+import { AuthPayloadDTO } from "../dto/auth.dto.js";
+import { IRoleDTO } from "../dto/role.dto.js";
 
 const JWT_SECRET = process.env.JWT_SECRET || "";
 
@@ -27,12 +20,12 @@ export const hasAdminRole = (
       return res.status(401).json({ message: "Invalid Authorization" });
     }
 
-    const payload = jwt.verify(token, JWT_SECRET) as AuthPayload;
+    const payload = jwt.verify(token, JWT_SECRET) as AuthPayloadDTO;
 
     console.log(">>>", payload);
 
     const checkAdminRole = payload.roles.some(
-      (r: IRole) => r.role === "ADMIN" && r.active,
+      (r: IRoleDTO) => r.role === "ADMIN" && r.active,
     );
     console.log("CheckAdminRole>>>", checkAdminRole);
     if (!checkAdminRole) {
