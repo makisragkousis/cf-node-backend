@@ -1,10 +1,12 @@
 import express from "express";
 import userRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
+import { setupSwagger } from "./swagger.js";
 
 const app = express();
 app.use(express.json());
 
+setupSwagger(app);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 // app.use('/api/roles', roleRoutes);

@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-// import { AuthPayload } from "../models/auth.model";
 import { AuthPayloadDTO } from "../dto/auth.dto.js";
 import { IRoleDTO } from "../dto/role.dto.js";
 
