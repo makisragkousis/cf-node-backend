@@ -46,7 +46,7 @@ export const googleLogin = async (idToken: string) => {
     }
 
     // If user do not exist in database, save user to database
-    let user = await User.findOne({ emal: googleUser.email });
+    let user = await User.findOne({ email: googleUser.email });
     if (!user) {
       console.log("user not exist", googleUser.email);
     }
@@ -57,7 +57,7 @@ export const googleLogin = async (idToken: string) => {
         email: googleUser.email,
         name: googleUser.name,
         photo: googleUser.picture,
-        roles: [{}],
+        roles: [],
       },
       process.env.JWT_SECRET as string,
       { expiresIn: "1h" },

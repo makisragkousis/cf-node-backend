@@ -24,11 +24,19 @@ const options: swaggerJSDoc.Options = {
       },
     ],
     components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
       schemas: {
         User: mongooseToSwagger(User),
         Role: mongooseToSwagger(Role),
       },
     },
+    security: [{ bearerAuth: [] }],
   },
   apis: ["./src/routes/*.ts"],
 };
