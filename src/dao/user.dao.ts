@@ -39,3 +39,13 @@ export const deleteUser = async (username: string): Promise<boolean> => {
   const result = await User.findOneAndDelete({ username }).exec();
   return !!result;
 };
+
+export const findLastInsertedUser = async () => {
+  try {
+    const result = await User.find({}).sort({ _id: -1 }).limit(1);
+    console.log("Last inserted user", result[0]?.username);
+    return result[0];
+  } catch (err) {
+    console.log("Problem in last inserted user", err);
+  }
+};

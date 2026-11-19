@@ -1,8 +1,13 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import supertest from "supertest";
 import express, { Express } from "express";
 import bodyParser from "body-parser";
+
+import dotenv from "dotenv";
+dotenv.config();
+
+const MONGO_URI = process.env.MONGO_URI || "";
 
 export class TestServer {
   public app: Express;
@@ -18,7 +23,16 @@ export class TestServer {
   async start() {
     this.mongoServer = await MongoMemoryServer.create();
     const uri = this.mongoServer.getUri();
-    await mongoose.connect(uri);
+    console.log("URI", uri);
+    // await mongoose.connect(uri)
+    await mongoose.connect(MONGO_URI).then(
+      () => {
+        console.log("Connection to MongoDB");
+      },
+      (err) => {
+        console.log("Failed to connect to MongoDB:", err);
+      },
+    );
   }
 
   async stop() {

@@ -9,6 +9,5 @@ module.exports = {
   setupFilesAfterEnv: ["<rootDir>/src/tests/testSetup.ts"],
   transform: { "^.+\\.tsx?$": "ts-jest" },
   coveragePathIgnorePatterns: ["/node_modules"],
-  runInBand: true,
   collectCoverage: true,
 };
